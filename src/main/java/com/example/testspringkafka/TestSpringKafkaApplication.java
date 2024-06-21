@@ -1,6 +1,9 @@
 package com.example.testspringkafka;
 
 import com.example.testspringkafka.data.BatchMessage;
+import com.fis.search.dto.SearchCombinationDTO;
+import com.fis.search.service.ElasticSearchService;
+import com.fis.search.service.impl.ElasticSearchServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +22,7 @@ public class TestSpringKafkaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		ElasticSearchService elasticSearchService = new ElasticSearchServiceImpl(null);
+		elasticSearchService.searchCombinationByTerm(new SearchCombinationDTO());
 	}
 }
