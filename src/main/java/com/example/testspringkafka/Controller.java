@@ -8,16 +8,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-@RestController("/api")
+@RestController
+@RequestMapping("/api")
 public class Controller {
 
     @Autowired
     KafkaTemplate<String, BatchMessage> kafkaTemplate;
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
 
     @GetMapping("/sendBathDataToKafka/{numberBatches}")
     public ResponseEntity<Object> sendBathDataToKafka(@PathVariable int numberBatches) {
@@ -35,9 +43,11 @@ public class Controller {
         list.addAll(teachers);
 
 
-        kafkaTemplate.send("my-first-topic", new BatchMessage("hello ", list));
+        kafkaTemplate.send("my-first-topic", new Random().nextInt()/2 ==0 ? "key1": "key2",new BatchMessage("hello ", list));
         System.out.println("sent students and teachers to my-first-topic");
         return ResponseEntity.ok("sent students and teachers to my-first-topic");
     }
+
+    //
 
 }

@@ -22,7 +22,7 @@ public class KafkaTopicConfiguration {
         return new KafkaAdmin(configs);
     }
 
-    public NewTopic celciusTopic() {
+    public NewTopic deliciousTopic() {
         return TopicBuilder.name("my-first-topic")
                 .partitions(2)
                 .config("max.message.bytes", "1000000000")
